@@ -39,3 +39,16 @@
 
 # debug information files
 *.dwo
+
+
+# visual studio specific
+.vs/
+Debug/
+Release/
+x64/
+ipch/
+*.vcxproj.user
+*.opensdf
+*.sdf
+*.cachefile
+*.log
