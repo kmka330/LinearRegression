@@ -49,6 +49,7 @@ x64/
 ipch/
 *.vcxproj
 *.vcxproj.user
+*.vcxproj.filters
 *.opensdf
 *.sdf
 *.cachefile
