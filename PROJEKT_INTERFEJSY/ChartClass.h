@@ -6,23 +6,19 @@
 
 class ConfigClass;
 
-/**
- * Klasa odpowiedzialna za rysowanie:
- *  punktow pomiarowych
- *  slupkow bledow
- *  prostej/krzywej regresji
- *  osi skali
- *
- */
-class ChartClass
-{
-private:
-    std::shared_ptr<ConfigClass> cfg;
+// klasa odpowiedzialna za rysowanie wykresu
+class ChartClass {
+    private:
+        std::shared_ptr<ConfigClass> cfg;
 
-public:
-    ChartClass(std::shared_ptr<ConfigClass> c);
+        //funckje pomocnicze do przeliczania wspolrzednych
+        int WorldToScreenX(double x, double minX, double scaleX, int left);
+        int WorldToScreenY(double y, double minY, double scaleY, int h, int bottom);
 
-    void Draw(wxDC* dc, int w, int h);
+    public:
+        explicit ChartClass(std::shared_ptr<ConfigClass> c);
+
+        void Draw(wxDC* dc, int w, int h);
 };
 
-#endif // __CHART_CLASS_H__
+#endif

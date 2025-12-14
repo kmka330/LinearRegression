@@ -1,4 +1,5 @@
 #include <wx/wx.h>
+#include <wx/image.h>
 #include "GUIMyFrame.h"
 
 class MyApp : public wxApp {
@@ -16,6 +17,7 @@ IMPLEMENT_APP(MyApp);
 
 bool MyApp::OnInit()
 {
+	wxInitAllImageHandlers();
 	SetProcessDPIAware();
 	wxFrame* mainFrame = new GUIMyFrame(NULL);
 	mainFrame->Show(true);

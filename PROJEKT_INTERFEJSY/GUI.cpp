@@ -8,7 +8,7 @@ MyFrame::MyFrame(wxWindow* parent,wxWindowID id,const wxString& title,const wxPo
     // panel do rysowania wykresu
     WxPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
     WxPanel->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNHIGHLIGHT));
-    WxPanel->SetMinSize(this->FromDIP(wxSize(800, 600)));
+    WxPanel->SetMinSize(this->FromDIP(wxSize(900, 800)));
     bSizerMain->Add(WxPanel, 1, wxEXPAND | wxALL, 5);
 
     // pionowy panel z przyciskami i suwakami
@@ -91,10 +91,14 @@ MyFrame::MyFrame(wxWindow* parent,wxWindowID id,const wxString& title,const wxPo
     bSizerMain->SetSizeHints(this);
     this->Centre(wxBOTH);
 
-    // podstawowe polaczenia zdarzen
+    // polaczenia zdarzen
     this->Connect(wxEVT_CLOSE_WINDOW,wxCloseEventHandler(MyFrame::MainFormClose));
 
     WxPanel->Connect(wxEVT_UPDATE_UI,wxUpdateUIEventHandler(MyFrame::WxPanel_Repaint),NULL, this);
+    
+    WxPanel->Connect(wxEVT_LEFT_DOWN,wxMouseEventHandler(MyFrame::panel_left_down), NULL, this);
+    WxPanel->Connect(wxEVT_MOTION,wxMouseEventHandler(MyFrame::panel_mouse_move),NULL, this);
+    WxPanel->Connect(wxEVT_LEFT_UP,wxMouseEventHandler(MyFrame::panel_left_up),NULL, this);
 
     button_load_file->Connect(wxEVT_COMMAND_BUTTON_CLICKED,wxCommandEventHandler(MyFrame::button_load_file_click),NULL, this);
 
@@ -170,4 +174,9 @@ MyFrame::~MyFrame()
     button_copy_clipboard->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED,wxCommandEventHandler(MyFrame::button_copy_clipboard_click),NULL, this);
 
     button_print->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED,wxCommandEventHandler(MyFrame::button_print_click),NULL, this);
+
+    WxPanel->Disconnect(wxEVT_LEFT_DOWN,wxMouseEventHandler(MyFrame::panel_left_down),NULL, this);
+    WxPanel->Disconnect(wxEVT_MOTION,wxMouseEventHandler(MyFrame::panel_mouse_move),NULL, this);
+    WxPanel->Disconnect(wxEVT_LEFT_UP,wxMouseEventHandler(MyFrame::panel_left_up),NULL, this);
+
 }

@@ -21,21 +21,22 @@
 #include <wx/event.h>
 
 
+
 //glowne okno aplikacji
-class MyFrame : public wxFrame{
+class MyFrame : public wxFrame {
     public:
-        wxPanel* WxPanel; 
-        MyFrame(wxWindow* parent,wxWindowID id = wxID_ANY,const wxString& title = _("Linear Regression"),const wxPoint& pos = wxDefaultPosition,const wxSize& size = wxSize(1000, 600),long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+        wxPanel* WxPanel;
+        MyFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Linear Regression"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1000, 600), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
         ~MyFrame();
 
     protected:
         //PRZYCISKI
         // dane do wykresu
-        wxButton* button_load_file;       //dane z pliku
-        wxButton* button_add_keyboard;    //dane z klawiatury
+        wxButton* button_load_file; //dane z pliku
+        wxButton* button_add_keyboard; //dane z klawiatury
 
         // skala
-        wxButton* button_auto_scale;   
+        wxButton* button_auto_scale;
         wxStaticText* label_zoox;
         wxSlider* slider_zoox;
         wxStaticText* label_zooy;
@@ -67,6 +68,9 @@ class MyFrame : public wxFrame{
         wxButton* button_copy_clipboard;
         wxButton* button_print;
 
+
+
+
         //handlery do nadpisania w GUIMyFrame
 
         // zamkniecie okna programu
@@ -75,13 +79,13 @@ class MyFrame : public wxFrame{
         // odswiezenie panelu z wykresem
         virtual void WxPanel_Repaint(wxUpdateUIEvent& event) { event.Skip(); }
 
-        // klikniecie: wczytaj dane z pliku
+        //wczytanie danych z pliku
         virtual void button_load_file_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: dodaj dane z klawiatury
+        //dodanie danych z klawiatury
         virtual void button_add_keyboard_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: autoskalowanie wykresu
+        //autoskalowanie wykresu
         virtual void button_auto_scale_click(wxCommandEvent& event) { event.Skip(); }
 
         // zmiana suwaka zoom x
@@ -96,7 +100,7 @@ class MyFrame : public wxFrame{
         // zmiana wyboru typu punktu
         virtual void choice_point_style_change(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: pokaz/ukryj slupki bledow
+        //slupki bledow
         virtual void check_show_errorbars_click(wxCommandEvent& event) { event.Skip(); }
 
         // zmiana typu regresji
@@ -105,27 +109,32 @@ class MyFrame : public wxFrame{
         // wybranie zestawu danych z listy
         virtual void list_datasets_select(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: dodaj zestaw danych
+        //dodanie zestawu danych
         virtual void button_add_dataset_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: usun zestaw danych
+        //usuniecie zestaw danych
         virtual void button_remove_dataset_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: zmien kolor punktow
+        //zmiana kolorow punktow
         virtual void button_point_color_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: zmien kolor tla
+        //zmiana kolorow tla
         virtual void button_bg_color_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: zapisz wykres do pliku
+        //zapis wykresu do pliku
         virtual void button_save_plot_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: kopiuj wykres do schowka
+        //kopia wykresu do schowka
         virtual void button_copy_clipboard_click(wxCommandEvent& event) { event.Skip(); }
 
-        // klikniecie: drukuj wykres
+        //druk wykresu
         virtual void button_print_click(wxCommandEvent& event) { event.Skip(); }
+
+        // zdarzenia myszy na panelu do przesuwania ramki
+        virtual void panel_left_down(wxMouseEvent& event) { event.Skip(); }
+        virtual void panel_mouse_move(wxMouseEvent& event) { event.Skip(); }
+        virtual void panel_left_up(wxMouseEvent& event) { event.Skip(); }
 
 };
 
-#endif // __GUI_H__
+#endif 

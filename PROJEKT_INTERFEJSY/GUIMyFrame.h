@@ -1,19 +1,25 @@
 #ifndef __GUIMyFrame__
 #define __GUIMyFrame__
-
 #include "GUI.h"
 #include <wx/dcbuffer.h>
 #include <memory>
 
-class ConfigClass;   // forward
-class ChartClass;    // forward
+class ConfigClass;
 
-class GUIMyFrame : public MyFrame{
+class GUIMyFrame : public MyFrame {
+    private:
+        bool dragInfoBox = false;
+        //pozycja myszki podczas klikniecia
+        wxPoint dragStartMouse;
+        //pozycja legendy podczas klikniecia
+        wxPoint dragStartBox;
+
     protected:
-        //handlery
+
         void MainFormClose(wxCloseEvent& event) override;
         void WxPanel_Repaint(wxUpdateUIEvent& event) override;
 
+        //obsluga przyciskow i suwakow
         void button_load_file_click(wxCommandEvent& event) override;
         void button_add_keyboard_click(wxCommandEvent& event) override;
 
@@ -38,14 +44,18 @@ class GUIMyFrame : public MyFrame{
         void button_copy_clipboard_click(wxCommandEvent& event) override;
         void button_print_click(wxCommandEvent& event) override;
 
+        void panel_left_down(wxMouseEvent& event) override;
+        void panel_mouse_move(wxMouseEvent& event) override;
+        void panel_left_up(wxMouseEvent& event) override;
+
     public:
-        GUIMyFrame(wxWindow* parent);
+        explicit GUIMyFrame(wxWindow* parent);
 
         void Repaint();
+        void RefreshDatasetList();
+        void UpdateControlsForCurrentDataset();
 
-        std::shared_ptr<ConfigClass> cfg; 
-
-        ~GUIMyFrame() = default;
+        std::shared_ptr<ConfigClass> cfg;
 };
 
-#endif // __GUIMyFrame__
+#endif 
