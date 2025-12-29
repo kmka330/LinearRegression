@@ -4,7 +4,7 @@
 #include <cmath>
 #include <algorithm>
 
-ConfigClass::ConfigClass(GUIMyFrame* window): MainWindow(window),zoomX(1.0), zoomY(1.0), showErrorBars(true), backgroundColor(*wxWHITE), infoBoxX(40), infoBoxY(40), currentDatasetIndex(0)
+ConfigClass::ConfigClass(GUIMyFrame* window): MainWindow(window),zoomX(1.0), zoomY(1.0), showErrorBars(true), backgroundColor(*wxWHITE), infoBoxX(70), infoBoxY(50), currentDatasetIndex(0)
 {
     datasets.emplace_back("Seria 1", *wxBLUE);
 }

@@ -206,6 +206,7 @@ void GUIMyFrame::check_show_errorbars_click(wxCommandEvent& event) {
 }
 
 void GUIMyFrame::choice_reg_type_change(wxCommandEvent& event) {
+    RegressionType currentType = cfg->GetCurrentRegType();
     int i = choice_reg_type->GetSelection();
     RegressionType rt = static_cast<RegressionType>(i);
     if (rt == RegressionType::Exponential) {
@@ -213,7 +214,8 @@ void GUIMyFrame::choice_reg_type_change(wxCommandEvent& event) {
         for (const auto& p : ds.points) {
             if (p.y <= 0) {
                 wxMessageBox("Regresja wykladnicza wymaga y > 0!!!", "Uwaga", wxOK | wxICON_WARNING);
-                break;
+                choice_reg_type->SetSelection((int)currentType);
+                return;
             }
         }
     }

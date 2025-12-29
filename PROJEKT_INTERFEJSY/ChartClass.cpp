@@ -206,10 +206,13 @@ void ChartClass::Draw(wxDC* dc, int w, int h) {
     // rysownaie punktow
     dc->SetClippingRegion(left, top, w - left - right, h - top - bottom);
     for (const auto& ds : datasets){
-        dc->SetPen(wxPen(ds.color, 1));
-        dc->SetBrush(wxBrush(ds.color));
         int ps = ds.size;
         PointShape shape = ds.shape;
+        
+        // Grubsze pioro dla krzyzyka i wiekszych punktow
+        int penThickness = (shape == PointShape::Cross) ? std::max(2, ps / 2) : 1;
+        dc->SetPen(wxPen(ds.color, penThickness));
+        dc->SetBrush(wxBrush(ds.color));
 
         for (const auto& p : ds.points) {
             if (p.x < viewMinX || p.x > viewMaxX) continue;
@@ -261,7 +264,7 @@ void ChartClass::Draw(wxDC* dc, int w, int h) {
     //legenda
     int bx = cfg->GetInfoBoxX();
     int by = cfg->GetInfoBoxY();
-    int line_height = 15; 
+    int line_height = 20; 
     int boxH = 5;
 
     for (const auto& ds : datasets) if (ds.regResult.valid) boxH += 4 * line_height + 5;
