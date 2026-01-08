@@ -112,7 +112,7 @@ class MyFrame : public wxFrame {
         //dodanie zestawu danych
         virtual void button_add_dataset_click(wxCommandEvent& event) { event.Skip(); }
 
-        //usuniecie zestaw danych
+        //usuniecie zestawu danych
         virtual void button_remove_dataset_click(wxCommandEvent& event) { event.Skip(); }
 
         //zmiana kolorow punktow

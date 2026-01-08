@@ -240,7 +240,8 @@ void ChartClass::Draw(wxDC* dc, int w, int h) {
         if (ds.regResult.valid) {
             dc->SetPen(wxPen(ds.color, 2, wxPENSTYLE_SHORT_DASH));
             if (ds.regType == RegressionType::Linear || ds.regType == RegressionType::Orthogonal) {
-                double x1 = viewMinX, x2 = viewMaxX;
+                double x1 = viewMinX;
+                double x2 = viewMaxX;
                 double y1 = ds.regResult.a * x1 + ds.regResult.b;
                 double y2 = ds.regResult.a * x2 + ds.regResult.b;
                 dc->DrawLine(WorldToScreenX(x1, viewMinX, scaleX, left),WorldToScreenY(y1, viewMinY, scaleY, h, bottom),WorldToScreenX(x2, viewMinX, scaleX, left),WorldToScreenY(y2, viewMinY, scaleY, h, bottom));
@@ -249,7 +250,8 @@ void ChartClass::Draw(wxDC* dc, int w, int h) {
                 int steps = 200;
                 double step = (viewMaxX - viewMinX) / steps;
                 for (int i = 0; i < steps; i++) {
-                    double xc = viewMinX + i * step; double xn = viewMinX + (i + 1) * step;
+                    double xc = viewMinX + i * step;
+                    double xn = viewMinX + (i + 1) * step;
                     double yc = ds.regResult.a * std::exp(ds.regResult.b * xc);
                     double yn = ds.regResult.a * std::exp(ds.regResult.b * xn);
                     if (std::abs(yc) > 1e10 || std::abs(yn) > 1e10) continue;
@@ -267,7 +269,7 @@ void ChartClass::Draw(wxDC* dc, int w, int h) {
     int line_height = 20; 
     int boxH = 5;
 
-    for (const auto& ds : datasets) if (ds.regResult.valid) boxH += 4 * line_height + 5;
+    for (const auto& ds : datasets) if (ds.regResult.valid) boxH += 5 * line_height + 5;
     if (boxH == 5) boxH = 30;
     int boxW = 240;
     if (bx < 5) bx = 5;
@@ -295,6 +297,8 @@ void ChartClass::Draw(wxDC* dc, int w, int h) {
             dc->DrawText(wx_string, bx + 10, text_y);
             text_y += line_height;
             dc->DrawText(wxString::Format("a=%.4g +/- %.2g", ds.regResult.a, ds.regResult.sa), bx + 10, text_y);
+            text_y += line_height;
+            dc->DrawText(wxString::Format("b=%.4g +/- %.2g", ds.regResult.b, ds.regResult.sb), bx + 10, text_y);
             text_y += line_height;
             dc->DrawText(wxString::Format("R^2=%.4f", ds.regResult.r2), bx + 10, text_y);
             text_y += line_height;

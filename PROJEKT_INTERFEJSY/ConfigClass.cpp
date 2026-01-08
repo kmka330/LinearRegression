@@ -19,13 +19,15 @@ void ConfigClass::AddDataSet(const std::string& name) {
 void ConfigClass::RemoveCurrentDataSet(){
     if (datasets.size() <= 1) return;
     datasets.erase(datasets.begin() + currentDatasetIndex);
-    if (currentDatasetIndex >= datasets.size())
+    if (currentDatasetIndex >= datasets.size()) {
         currentDatasetIndex = datasets.size() - 1;
+    }
 }
 
 void ConfigClass::SelectDataSet(int index){
-    if (index >= 0 && index < datasets.size())
+    if (index >= 0 && index < datasets.size()) {
         currentDatasetIndex = index;
+    }
 }
 
 DataSet& ConfigClass::GetCurrentDataSet(){
@@ -82,8 +84,9 @@ PointShape ConfigClass::GetCurrentPointShape() const{
 
 
 void ConfigClass::RecomputeAll(){
-    for (size_t i = 0; i < datasets.size(); i++)
+    for (size_t i = 0; i < datasets.size(); i++) {
         RecomputeRegression(i);
+    }
 }
 
 void ConfigClass::RecomputeRegression(int datasetIndex){

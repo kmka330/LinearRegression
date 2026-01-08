@@ -25,6 +25,7 @@ public:
         if (page != 1) return false;
         wxDC* dc = GetDC(); 
         if (!dc) return false;
+
         int w, h; 
         dc->GetSize(&w, &h); 
         //skalowanie
@@ -45,7 +46,7 @@ public:
 };
 
 GUIMyFrame::GUIMyFrame(wxWindow* parent) : MyFrame(parent) {
-    SetTitle("Projekt Linear Regression");
+    SetTitle("Project Linear Regression");
     CreateStatusBar();
     cfg = std::make_shared<ConfigClass>(this);
     cfg->SetZoomX(slider_zoox->GetValue() / 50.0);
@@ -126,18 +127,21 @@ void GUIMyFrame::button_load_file_click(wxCommandEvent& event) {
     }
     file.Close();
 
-    if (data_points.size() < 2) { wxMessageBox("Za malo punktow.", "Uwaga", wxOK | wxICON_WARNING); return; }
+    if (data_points.size() < 2) { 
+        wxMessageBox("Za malo punktow.", "Uwaga", wxOK | wxICON_WARNING);
+        return;
+    }
     cfg->SetData(data_points);
     SetStatusText(wxString::Format("Pomyslnie wpisano dane z pliku."));
     Repaint();
 }
 
 void GUIMyFrame::button_add_keyboard_click(wxCommandEvent& event) {
-    wxTextEntryDialog dlg(this, "Format: x y uncertaintyY\nnp. 1.5 2.3 0.1", "Dodaj punkt");
+    wxTextEntryDialog entry_dialog(this, "Format: x y uncertaintyY\nnp. 1.5 2.3 0.1", "Dodaj punkt");
     
-    if (dlg.ShowModal() != wxID_OK) return;
+    if (entry_dialog.ShowModal() != wxID_OK) return;
 
-    wxString txt = dlg.GetValue(); 
+    wxString txt = entry_dialog.GetValue(); 
     txt.Replace(",", ".");
 
     double x = 0.0;
@@ -233,9 +237,9 @@ void GUIMyFrame::list_datasets_select(wxCommandEvent& event) {
 }
 
 void GUIMyFrame::button_add_dataset_click(wxCommandEvent& event) {
-    wxTextEntryDialog dlg(this, "Podaj nazwe nowej serii:", "Nowa seria");
-    if (dlg.ShowModal() == wxID_OK) {
-        cfg->AddDataSet(dlg.GetValue().ToStdString());
+    wxTextEntryDialog entry_dialog(this, "Podaj nazwe nowej serii:", "Nowa seria");
+    if (entry_dialog.ShowModal() == wxID_OK) {
+        cfg->AddDataSet(entry_dialog.GetValue().ToStdString());
 
         RefreshDatasetList(); 
         Repaint();
